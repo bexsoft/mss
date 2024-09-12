@@ -13,14 +13,17 @@ export default defineConfig({
     plugins: [
         pigment({}),
         react(),
+        dts({
+            include: ['lib'], outDir: 'dist', rollupTypes: true,
+            tsconfigPath: "./tsconfig.app.json",
+        }),
         libInjectCss(),
-        dts({include: ['lib']})
     ],
     build: {
         copyPublicDir: false,
         lib: {
             entry: resolve(__dirname, 'lib/main.ts'),
-            formats: ['es'],
+            formats: ["es"],
         },
         rollupOptions: {
             external: ['react', 'react/jsx-runtime'],
