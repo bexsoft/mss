@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "module": "dist/main.js",
+  "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "files": [
     "dist"
@@ -13,7 +14,7 @@
     "build": "VITE_CJS_TRACE=true tsc --p ./tsconfig.build.json && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "yarn build"
   },
   "peerDependencies": {
     "@pigment-css/react": "^0.0.22",

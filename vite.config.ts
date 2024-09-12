@@ -28,7 +28,7 @@ export default defineConfig({
             formats: ["es"],
         },
         rollupOptions: {
-            external: ['react', 'react/jsx-runtime', '@pigment-css/react'],
+            external: ['react', 'react/jsx-runtime'],
             input: Object.fromEntries(
                 glob.sync('lib/**/**/*.{ts,tsx}', {
                     ignore: ["lib/**/**/*.d.ts"],
