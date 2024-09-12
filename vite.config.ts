@@ -21,15 +21,17 @@ export default defineConfig({
     ],
     build: {
         copyPublicDir: false,
+        outDir: 'dist',
         lib: {
+            name: "mss",
             entry: resolve(__dirname, 'lib/main.ts'),
             formats: ["es"],
         },
         rollupOptions: {
-            external: ['react', 'react/jsx-runtime'],
+            external: ['react', 'react/jsx-runtime', '@pigment-css/react'],
             input: Object.fromEntries(
-                glob.sync('lib/**/*.{ts,tsx}', {
-                    ignore: ["lib/**/*.d.ts"],
+                glob.sync('lib/**/**/*.{ts,tsx}', {
+                    ignore: ["lib/**/**/*.d.ts"],
                 }).map(file => [
                     // The name of the entry point
                     // lib/nested/foo.ts becomes nested/foo
