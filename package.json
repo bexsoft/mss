@@ -3,8 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "module": "dist/main.js",
-  "main": "dist/main.js",
+  "module": "dist/main.esm.js",
   "types": "dist/main.d.ts",
   "license": "AGPL-3.0-or-later",
   "files": [
@@ -45,5 +44,10 @@
   "sideEffects": [
     "**/*.css"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/main.esm.js"
+    }
+  },
   "packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72"
 }

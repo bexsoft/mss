@@ -12,28 +12,29 @@ export default defineConfig({
         pigment({}),
         react(),
         dts({
-            include: ['lib'], outDir: 'dist', rollupTypes: true,
-            tsconfigPath: "./tsconfig.app.json",
+            include: ['lib'],
+            outDir: 'dist',
+            rollupTypes: true,
+            tsconfigPath: "./tsconfig.build.json",
         }),
         libInjectCss(),
     ],
     build: {
         copyPublicDir: false,
         outDir: 'dist',
+        sourcemap: true,
         lib: {
             name: "mss",
-            entry: resolve(__dirname, 'lib/main.ts'),
+            entry: resolve(__dirname, 'lib/main.ts')
         },
         rollupOptions: {
             input: "lib/main.ts",
             output: [
                 {
-                    esModule: true,
                     format: "esm",
-                    sourcemap: true,
                     assetFileNames: 'assets/[name][extname]',
-                    entryFileNames: '[name].js',
-                }
+                    entryFileNames: '[name].esm.js',
+                },
             ],
             external: ['react', 'react/jsx-runtime'],
         }
