@@ -6,6 +6,7 @@
   "module": "dist/main.js",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
+  "license": "AGPL-3.0-or-later",
   "files": [
     "dist"
   ],
