@@ -4,14 +4,19 @@ import {fileURLToPath} from 'node:url'
 import {glob} from 'glob'
 import react from '@vitejs/plugin-react'
 import dts from 'vite-plugin-dts'
-import {pigment} from "@pigment-css/vite-plugin";
+import {pigment, extendTheme} from "@pigment-css/vite-plugin";
+import type { ExtendTheme } from '@pigment-css/react/theme';
 import {libInjectCss} from 'vite-plugin-lib-inject-css'
 
 
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [
-        pigment({}),
+        pigment({theme: extendTheme({
+                bgColor: "#f09",
+                fontColor: "#000",
+                borderColor: "#cdcdcd"
+            })}),
         react(),
         libInjectCss(),
         dts({include: ['lib'], rollupTypes: true, tsconfigPath: "./tsconfig.build.json"})
@@ -46,3 +51,30 @@ export default defineConfig({
         }
     }
 })
+
+interface ThemeTokens {
+    bgColor: string;
+    fontColor: string;
+    borderColor: string;
+}
+
+declare module '@pigment-css/react/theme' {
+    interface ThemeArgs {
+        theme: ExtendTheme<{
+            colorScheme: 'light' | 'dark';
+            tokens: ThemeTokens;
+        }>;
+    }
+}
+
+declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
+    namespace React {
+        interface HTMLAttributes<T> {
+            sx?:
+                | React.CSSProperties
+                | ((theme: ThemeTokens) => React.CSSProperties)
+                | ReadonlyArray<React.CSSProperties | ((theme: ThemeTokens) => React.CSSProperties)>;
+        }
+    }
+}
