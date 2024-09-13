@@ -1,6 +1,6 @@
 import { jsx as O } from "react/jsx-runtime";
 import * as V from "react";
-import './assets/main.css';/**
+import '../../assets/index.css';/**
   * @pigment-css/react v0.0.22
   *
   * @license MIT
@@ -128,4 +128,3 @@ function ne(e) {
 export {
   ne as Button
 };
-//# sourceMappingURL=main.esm.js.map

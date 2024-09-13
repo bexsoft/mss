@@ -1,5 +1,7 @@
 import {defineConfig} from 'vite'
-import {resolve} from 'path'
+import {extname, relative, resolve} from 'path'
+import {fileURLToPath} from 'node:url'
+import {glob} from 'glob'
 import react from '@vitejs/plugin-react'
 import dts from 'vite-plugin-dts'
 import {pigment} from "@pigment-css/vite-plugin";
@@ -11,32 +13,36 @@ export default defineConfig({
     plugins: [
         pigment({}),
         react(),
-        dts({
-            include: ['lib'],
-            outDir: 'dist',
-            rollupTypes: true,
-            tsconfigPath: "./tsconfig.build.json",
-        }),
         libInjectCss(),
+        dts({include: ['lib'], rollupTypes: true, tsconfigPath: "./tsconfig.build.json"})
     ],
     build: {
         copyPublicDir: false,
-        outDir: 'dist',
-        sourcemap: true,
         lib: {
-            name: "mss",
-            entry: resolve(__dirname, 'lib/main.ts')
+            entry: resolve(__dirname, 'lib/main.ts'),
+            formats: ['es'],
         },
         rollupOptions: {
-            input: "lib/main.ts",
-            output: [
-                {
-                    format: "esm",
-                    assetFileNames: 'assets/[name][extname]',
-                    entryFileNames: '[name].esm.js',
-                },
-            ],
             external: ['react', 'react/jsx-runtime'],
+            input: Object.fromEntries(
+                glob.sync('lib/**/*.{ts,tsx}', {
+                    ignore: ["lib/**/*.d.ts"],
+                }).map(file => [
+                    // The name of the entry point
+                    // lib/nested/foo.ts becomes nested/foo
+                    relative(
+                        'lib',
+                        file.slice(0, file.length - extname(file).length)
+                    ),
+                    // The absolute path to the entry file
+                    // lib/nested/foo.ts becomes /project/lib/nested/foo.ts
+                    fileURLToPath(new URL(file, import.meta.url))
+                ])
+            ),
+            output: {
+                assetFileNames: 'assets/[name][extname]',
+                entryFileNames: '[name].js',
+            }
         }
     }
-});
+})

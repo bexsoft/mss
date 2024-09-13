@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "module": "dist/main.esm.js",
+  "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "license": "AGPL-3.0-or-later",
   "files": [
