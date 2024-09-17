@@ -5,7 +5,7 @@ import {Button} from "../";
 function App() {
   return (
     <>
-      <Button>test</Button>
+      <Button id={"lol"} sx={{padding: 14,}}>test</Button>
     </>
   )
 }

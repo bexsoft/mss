@@ -5,7 +5,6 @@ import {glob} from 'glob'
 import react from '@vitejs/plugin-react'
 import dts from 'vite-plugin-dts'
 import {pigment, extendTheme} from "@pigment-css/vite-plugin";
-import type { ExtendTheme } from '@pigment-css/react/theme';
 import {libInjectCss} from 'vite-plugin-lib-inject-css'
 
 
@@ -51,30 +50,3 @@ export default defineConfig({
         }
     }
 })
-
-interface ThemeTokens {
-    bgColor: string;
-    fontColor: string;
-    borderColor: string;
-}
-
-declare module '@pigment-css/react/theme' {
-    interface ThemeArgs {
-        theme: ExtendTheme<{
-            colorScheme: 'light' | 'dark';
-            tokens: ThemeTokens;
-        }>;
-    }
-}
-
-declare global {
-    // eslint-disable-next-line @typescript-eslint/no-namespace
-    namespace React {
-        interface HTMLAttributes<T> {
-            sx?:
-                | React.CSSProperties
-                | ((theme: ThemeTokens) => React.CSSProperties)
-                | ReadonlyArray<React.CSSProperties | ((theme: ThemeTokens) => React.CSSProperties)>;
-        }
-    }
-}

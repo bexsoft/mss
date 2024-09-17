@@ -1,9 +1,9 @@
-import React from "react";
+import React, { FC} from "react";
 
-import {styled} from "@pigment-css/react";
+import {CSSProperties, styled} from "@pigment-css/react";
 
-//
-// @ts-ignore
+
+// @ts-expect-error test
 const ButtonBase = styled('button')(({theme}) => ({
     padding: '10px 20px',
     borderRadius: 5,
@@ -18,9 +18,11 @@ const ButtonBase = styled('button')(({theme}) => ({
 }));
 
 export interface ButtonTest {
-    sx?: object,
+    sx?: CSSProperties,
 }
 
-export function Button(props: React.ButtonHTMLAttributes<HTMLButtonElement & ButtonTest>) {
-    return <ButtonBase sx={(theme) => ({backgroundColor: theme.fontColor})}>{props.children}</ButtonBase>
+const Button: FC<ButtonTest & React.ButtonHTMLAttributes<HTMLButtonElement>> = ({children, sx, ...restProps}) => {
+    return <ButtonBase sx={() => ({...sx})} {...restProps}>{children}</ButtonBase>
 }
+
+export default Button;

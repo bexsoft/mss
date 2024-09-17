@@ -1,10 +1,11 @@
+import { CSSProperties } from '@pigment-css/react';
 import { default as default_2 } from 'react';
-import { JSX as JSX_2 } from 'react/jsx-runtime';
+import { FC } from 'react';
 
-export declare function Button(props: default_2.ButtonHTMLAttributes<HTMLButtonElement & ButtonTest>): JSX_2.Element;
+export declare const Button: FC<ButtonTest & default_2.ButtonHTMLAttributes<HTMLButtonElement>>;
 
 declare interface ButtonTest {
-    sx?: object;
+    sx?: CSSProperties;
 }
 
 export { }

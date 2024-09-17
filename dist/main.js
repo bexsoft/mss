@@ -1,4 +1,4 @@
-import { Button as r } from "./components/Button/index.js";
+import { default as a } from "./components/Button/index.js";
 export {
-  r as Button
+  a as Button
 };
